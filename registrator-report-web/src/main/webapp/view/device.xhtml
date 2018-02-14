@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+  ~
+  ~ Copyright (C) 2018  EXO Service Solutions
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation; either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+  ~
+  ~ You can contact us at contact4exo@exo.mk
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Users</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">
+            <h:form id="form">
+                <p:spacer height="10"/>
+                <p:dataTable id="deviceTable" var="device" value="#{deviceView.deviceList}"
+                             resizableColumns="true"
+                             scrollable="true"
+                             editable="true"
+                             rowKey="#{device.id}"
+                             styleClass="addDeviceDataTableStyle">
+
+                    <p:ajax event="rowEdit" listener="#{deviceView.onRowEdit}" update=":form:deviceTable"/>
+                    <p:ajax event="rowEditCancel" listener="#{deviceView.onRowCancel}" update=":form:deviceTable"/>
+
+                    <p:column headerText="UID" style="width: 10%">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{device.uid}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="uid" value="#{device.uid}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="User" style="width: 15%">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText
+                                    value="#{device.user.name} #{device.user.surname}"/></f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu id="user" value="#{device.user}"
+                                                 converter="#{userConverterBean}" style="width:90%">
+                                    <f:selectItems value="#{deviceView.userList}" var="user"
+                                                   itemLabel="#{user.name} #{user.surname}"
+                                                   itemValue="#{user.id}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Description" style="width: 15%">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{device.description}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="description" value="#{device.description}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Date" style="width: 15%">
+                        <h:outputText value="#{device.date}"/>
+                    </p:column>
+                    <p:column style="width: 20%">
+                        <f:facet name="header">
+                            <p:commandButton styleClass="btn-green-color" value="Add device" icon="fa fa-plus fa-lg"
+                                             action="#{deviceView.addDevice}" update=":form:deviceTable"/>
+                        </f:facet>
+                        <p:rowEditor/>
+
+                        <p:commandButton value="Delete" styleClass="btn-red-color" icon="fa fa-trash-o fa-lg"
+                                         action="#{deviceView.deleteDevice}"
+                                         update=":form:deviceTable">
+                            <f:setPropertyActionListener value="#{device}" target="#{deviceView.selectedDevice}"/>
+                        </p:commandButton>
+
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

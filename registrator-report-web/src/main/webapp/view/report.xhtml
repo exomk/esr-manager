@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+  ~
+  ~ Copyright (C) 2018  EXO Service Solutions
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation; either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+  ~
+  ~ You can contact us at contact4exo@exo.mk
+  -->
+
+<!--
+  Created by IntelliJ IDEA.
+  User: atanasko
+  Date: 11/09/17
+  Time: 00:10 AM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <title>Admin home page</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">
+            <h:form id="form">
+                <p:messages showDetail="true"/>
+                <p:spacer height="10"/>
+                <p:panel styleClass="report-options-panel">
+                    <p:selectOneMenu id="user" value="#{reportView.selectedUser}" converter="#{userConverterBean}"
+                                     style="width:300px" disabled="#{reportView.isUserRole}">
+                        <p:ajax event="change" listener="#{reportView.onChange}" update="reportTable"/>
+                        <f:selectItem itemLabel=" Any User" itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{reportView.userList}" var="user"
+                                       itemLabel="#{user.name} #{user.surname}"
+                                       itemValue="#{user.id}"/>
+                    </p:selectOneMenu>
+                    <p:spacer styleClass="horizontal-divider" width="10"/>
+                    <p:outputPanel styleClass="ui-calendar-div">
+                        <p:calendar id="from" value="#{reportView.fromDate}">
+                            <p:ajax event="dateSelect" listener="#{reportView.onChange}"
+                                    update="reportTable"/>
+                        </p:calendar>
+                        <p:watermark for="from" value="Date from" id="from_watermark"/>
+                    </p:outputPanel>
+
+                    <p:spacer styleClass="horizontal-divider" width="10"/>
+                    <p:outputPanel styleClass="ui-calendar-div">
+                        <p:calendar id="to" value="#{reportView.toDate}">
+                            <p:ajax event="dateSelect" listener="#{reportView.onChange}"
+                                    update="reportTable"/>
+                        </p:calendar>
+                        <p:watermark for="to" value="Date to" id="to_watermark"/>
+                    </p:outputPanel>
+                    <p:spacer styleClass="horizontal-divider" width="10"/>
+                    <p:outputPanel styleClass="ui-calendar-div" rendered="#{reportView.isUserRole}">
+                        <p:calendar id="datetime" value="#{reportView.logDate}" pattern="MM/dd/yyyy HH:mm:ss"/>
+                        <p:watermark for="datetime" value="Date and time" id="date_watermark"/>
+                    </p:outputPanel>
+                    <p:spacer styleClass="horizontal-divider" width="10" rendered="#{reportView.isUserRole}"/>
+                    <p:commandButton styleClass="btntest" value="Log Time" actionListener="#{reportView.logTime}"
+                                     icon="ui-icon-check" rendered="#{reportView.isUserRole}"/>
+                </p:panel>
+
+                <p:spacer height="10"/>
+
+                <p:dataTable id="reportTable" var="workLog" value="#{reportView.workLogList}"
+                             resizableColumns="true"
+                             scrollable="true"
+                             selectionMode="single"
+                             rowKey="#{workLog.id}">
+                    <c:if test="#{reportView.selectedUser == null}">
+                        <p:column headerText="Full Name" style="width: 25%">
+                            <h:outputText value="#{workLog.device.user.name} #{workLog.device.user.surname}"/>
+                        </p:column>
+                    </c:if>
+                    <p:column headerText="Date" style="width: 25%">
+                        <h:outputText value="#{workLog.date}"/>
+                    </p:column>
+                    <p:column headerText="Time" style="width: 25%">
+                        <h:outputText value="#{workLog.time}"/>
+                    </p:column>
+                    <p:column/>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

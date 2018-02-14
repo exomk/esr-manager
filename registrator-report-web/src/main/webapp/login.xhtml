@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+  ~
+  ~ Copyright (C) 2018  EXO Service Solutions
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation; either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+  ~
+  ~ You can contact us at contact4exo@exo.mk
+  -->
+
+<!--
+  Created by IntelliJ IDEA.
+  User: atanasko
+  Date: 8.11.17
+  Time: 13:36
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>EXO</title>
+</h:head>
+
+<h:body style="overflow-x:hidden;">
+    <ui:composition template="/template/login_template.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <p:outputPanel styleClass="login-panel">
+                    <p:panel styleClass="login-panel-header-bar-top">
+                        <p:messages id="msgs" autoUpdate="true"/>
+                    </p:panel>
+                    <p:panel styleClass="login-panel-header-bar-bottom"/>
+                    <p:panel id="login" styleClass="login-panel-body">
+                        <p:panelGrid columns="1" styleClass="login-panel-grid">
+                            <p:inputText id="username" value="#{loginView.username}" label="username" required="true"
+                                         styleClass="login-username" placeholder="&#xf007;  Username"/>
+                            <p:password id="password" value="#{loginView.password}" label="password" required="true"
+                                        styleClass="login-password" placeholder="&#xf023;  Password"/>
+
+                            <p:commandButton action="#{loginView.login}" value="LOGIN" styleClass="login-button"
+                                             update="login" icon="fa fa-sign-in fa-lg"/>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:outputPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

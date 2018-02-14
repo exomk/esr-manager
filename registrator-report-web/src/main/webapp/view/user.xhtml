@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+  ~
+  ~ Copyright (C) 2018  EXO Service Solutions
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation; either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+  ~
+  ~ You can contact us at contact4exo@exo.mk
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Users</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">
+            <h:form id="form">
+                <p:spacer height="10"/>
+                <p:dataTable id="userTable" var="user" value="#{userView.userList}"
+                             resizableColumns="true"
+                             scrollable="true"
+                             editable="true"
+                             rowKey="#{user.id}"
+                             styleClass="addUserDataTableStyle">
+                    <p:ajax event="rowEdit" listener="#{userView.onRowEdit}"/>
+                    <p:ajax event="rowEditCancel" listener="#{userView.onRowCancel}"/>
+
+                    <p:column headerText="Username" style="width: 10%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{user.username}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="username" value="#{user.username}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Password" style="width: 10%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="***********"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:password id="password" value="#{user.password}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Name" style="width: 15%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{user.name}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="nameId" value="#{user.name}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Surname" style="width: 15%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{user.surname}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="surnameId" value="#{user.surname}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Date" style="width: 10%">
+                        <h:outputText value="#{user.date}"/>
+                    </p:column>
+                    <p:column headerText="Role" style="width: 10%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{user.role}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu id="role" value="#{user.role}" style="width:90%">
+                                    <f:selectItems value="#{userView.roles}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column style="width: 20%">
+                        <f:facet name="header">
+                            <p:commandButton styleClass="btn-green-color" value="Add user" icon="fa fa-plus fa-lg"
+                                             action="#{userView.addUser}" update="@form:userTable"/>
+                        </f:facet>
+
+                        <p:rowEditor/>
+
+                        <p:commandButton value="Delete" styleClass="btn-red-color" icon="fa fa-trash-o fa-lg"
+                                         action="#{userView.deleteUser}"
+                                         update="@form:userTable">
+                            <f:setPropertyActionListener value="#{user}" target="#{userView.selectedUser}"/>
+                        </p:commandButton>
+
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
