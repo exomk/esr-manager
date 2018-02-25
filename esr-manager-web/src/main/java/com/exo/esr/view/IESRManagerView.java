@@ -44,10 +44,10 @@ public interface IESRManagerView {
             "btnSave.addClass('ui-row-editor-disabled');" +
             "btnSave.on( 'click', false);" +
 
-            "$('tbody.ui-datatable-data tr:first-child input').keyup(function() {" +
-
+            "$('tbody.ui-datatable-data tr.ui-row-editing td input[role=\"textbox\"]').keyup(function() {" +
                 "var empty = false;" +
-                "$('tbody.ui-datatable-data tr:first-child input:not([role=\"combobox\"])').each(function() {" +
+
+                "$('tbody.ui-datatable-data tr.ui-row-editing input[role=\"textbox\"]').each(function() {" +
                     "if ($(this).val() == '') {" +
                     "empty = true;" +
                     "}" +
