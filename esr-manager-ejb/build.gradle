@@ -20,12 +20,11 @@
  * You can contact us at contact4exo@exo.mk
  */
 
-rootProject.name = 'esr-manager'
-
-include 'esr-manager-eao'
-include 'esr-manager-eao'
-include 'esr-manager-ear'
-include 'esr-manager-ejb'
-include 'esr-manager-ejb-client'
-include 'esr-manager-web'
-
+dependencies {
+    compile group: 'javax', name: 'javaee-api', version: '7.0'
+//    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final'
+//    compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+    compile project(':esr-manager-ejb-client')
+    compile project(':esr-manager-eao')
+}

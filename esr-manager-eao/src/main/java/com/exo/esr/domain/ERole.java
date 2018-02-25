@@ -20,12 +20,10 @@
  * You can contact us at contact4exo@exo.mk
  */
 
-rootProject.name = 'esr-manager'
+package com.exo.esr.domain;
 
-include 'esr-manager-eao'
-include 'esr-manager-eao'
-include 'esr-manager-ear'
-include 'esr-manager-ejb'
-include 'esr-manager-ejb-client'
-include 'esr-manager-web'
-
+public enum ERole {
+    ADMIN,
+    MANAGER,
+    USER
+}

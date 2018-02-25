@@ -20,12 +20,14 @@
  * You can contact us at contact4exo@exo.mk
  */
 
-rootProject.name = 'esr-manager'
+package com.exo.esr.util;
 
-include 'esr-manager-eao'
-include 'esr-manager-eao'
-include 'esr-manager-ear'
-include 'esr-manager-ejb'
-include 'esr-manager-ejb-client'
-include 'esr-manager-web'
+/**
+ * Created by atanasko on 9.11.17.
+ */
+public interface IPasswordUtil {
 
+    String generateSalt();
+
+    String encodePassword(String passwordToHash, String salt);
+}
