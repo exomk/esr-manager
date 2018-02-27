@@ -49,9 +49,10 @@
                 <p:spacer height="10"/>
                 <p:panel styleClass="report-options-panel">
                     <p:selectOneMenu id="user" value="#{reportView.selectedUser}" converter="#{userConverterBean}"
-                                     style="width:300px" disabled="#{reportView.isUserRole}">
+                                     style="width:300px">
+                        <!-- Test with Primefaces 6.2 disabled="#{reportView.isUserRole}"-->
                         <p:ajax event="change" listener="#{reportView.onChange}" update="reportTable"/>
-                        <f:selectItem itemLabel=" Any User" itemValue="" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="Any User" itemValue="" noSelectionOption="true"/>
                         <f:selectItems value="#{reportView.userList}" var="user"
                                        itemLabel="#{user.name} #{user.surname}"
                                        itemValue="#{user.id}"/>

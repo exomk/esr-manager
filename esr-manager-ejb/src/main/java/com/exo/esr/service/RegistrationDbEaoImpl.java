@@ -22,6 +22,7 @@
 
 package com.exo.esr.service;
 
+import com.exo.esr.domain.ERole;
 import com.exo.esr.domain.WorkLog;
 import com.exo.esr.entity.WorkLogEntity;
 import com.exo.esr.domain.User;
@@ -324,7 +325,7 @@ public class RegistrationDbEaoImpl implements IRegistrationDbEao {
 
         queryString = "FROM WorkLogEntity as workLog";
 
-        if (user != null) {
+        if (user != null && !(user.getRole() == ERole.ADMIN)) {
             queryString += " WHERE workLog.deviceEntity.userEntity.id =:id";
         }
         if (fromDate != null) {
@@ -343,7 +344,7 @@ public class RegistrationDbEaoImpl implements IRegistrationDbEao {
         }
 
         query = entityManager.createQuery(queryString, WorkLogEntity.class);
-        if (user != null) {
+        if (user != null && !(user.getRole() == ERole.ADMIN)) {
             query.setParameter("id", user.getId());
         }
         if (fromDate != null) {
