@@ -23,6 +23,7 @@
 package com.exo.esr.service;
 
 import com.exo.esr.domain.Device;
+import com.exo.esr.domain.ERegisterType;
 import com.exo.esr.domain.User;
 import com.exo.esr.domain.WorkLog;
 import com.exo.esr.entity.UserEntity;
@@ -73,6 +74,6 @@ public interface IRegistrationDbEao {
 
     List<WorkLog> getWorkLogList(User user, Date fromDate, Date toDate);
 
-    void addWorkLog(User user, Timestamp timestamp);
+    void addWorkLog(User user, Timestamp timestamp, ERegisterType registerType);
 
 }

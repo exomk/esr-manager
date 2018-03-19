@@ -22,13 +22,10 @@
 
 package com.exo.esr.service;
 
-import com.exo.esr.domain.ERole;
-import com.exo.esr.domain.WorkLog;
+import com.exo.esr.domain.*;
 import com.exo.esr.entity.WorkLogEntity;
-import com.exo.esr.domain.User;
 import com.exo.esr.entity.DeviceEntity;
 import com.exo.esr.util.IPasswordUtil;
-import com.exo.esr.domain.Device;
 import com.exo.esr.entity.UserEntity;
 
 import javax.ejb.EJB;
@@ -361,7 +358,7 @@ public class RegistrationDbEaoImpl implements IRegistrationDbEao {
     }
 
     @Override
-    public void addWorkLog(User user, Timestamp timestamp) {
+    public void addWorkLog(User user, Timestamp timestamp, ERegisterType registerType) {
         UserEntity userEntity;
         DeviceEntity deviceEntity;
         WorkLogEntity workLogEntity = new WorkLogEntity();
@@ -370,6 +367,7 @@ public class RegistrationDbEaoImpl implements IRegistrationDbEao {
         deviceEntity = (DeviceEntity) userEntity.getDeviceEntityList().toArray()[0];
         workLogEntity.setDeviceEntity(deviceEntity);
         workLogEntity.setTimestamp(timestamp);
+        workLogEntity.setRegisterType(registerType);
 
         entityManager.persist(workLogEntity);
     }

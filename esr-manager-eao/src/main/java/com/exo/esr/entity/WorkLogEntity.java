@@ -23,6 +23,8 @@
 
 package com.exo.esr.entity;
 
+import com.exo.esr.domain.ERegisterType;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -36,6 +38,7 @@ public class WorkLogEntity {
     private int id;
     private Timestamp timestamp;
     private DeviceEntity deviceEntity;
+    private ERegisterType registerType;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +69,16 @@ public class WorkLogEntity {
 
     public void setDeviceEntity(DeviceEntity deviceEntity) {
         this.deviceEntity = deviceEntity;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "register_type")
+    public ERegisterType getRegisterType() {
+        return registerType;
+    }
+
+    public void setRegisterType(ERegisterType checkType) {
+        this.registerType = checkType;
     }
 
     @Override

@@ -22,6 +22,7 @@
 
 package com.exo.esr.view;
 
+import com.exo.esr.domain.ERegisterType;
 import com.exo.esr.domain.ERole;
 import com.exo.esr.domain.User;
 import com.exo.esr.domain.WorkLog;
@@ -61,8 +62,11 @@ public class ReportView implements Serializable, IESRManagerView {
 
     private Date logDate;
 
+    private ERegisterType registerType;
+
     @EJB
     private IRegistrationDbEao registrationDbEao;
+
 
     @PostConstruct
     public void init() {
@@ -131,11 +135,28 @@ public class ReportView implements Serializable, IESRManagerView {
         this.logDate = logDate;
     }
 
+    public void setRegisterType(ERegisterType registerType) {
+        this.registerType = registerType;
+    }
+
+    public ERegisterType getRegisterType() {
+        return registerType;
+    }
+
+    /**
+     * Return array of register types.
+     *
+     * @return Array of register types.
+     */
+    public ERegisterType[] getRegisterTypes() {
+        return ERegisterType.values();
+    }
+
     public void logTime() {
         ExternalContext externalContext;
 
         try {
-            registrationDbEao.addWorkLog(selectedUser, new Timestamp(logDate.getTime()));
+            registrationDbEao.addWorkLog(selectedUser, new Timestamp(logDate.getTime()), registerType);
             externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             externalContext.redirect(((HttpServletRequest) externalContext.getRequest()).getRequestURI());

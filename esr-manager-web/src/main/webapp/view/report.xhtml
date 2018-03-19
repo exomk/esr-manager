@@ -79,6 +79,11 @@
                         <p:watermark for="datetime" value="Date and time" id="date_watermark"/>
                     </p:outputPanel>
                     <p:spacer styleClass="horizontal-divider" width="10" rendered="#{reportView.isUserRole}"/>
+                    <p:selectOneMenu id="registerType" value="#{reportView.registerType}" style="width: 150px"
+                                     rendered="#{reportView.isUserRole}">
+                        <f:selectItems value="#{reportView.registerTypes}"/>
+                    </p:selectOneMenu>
+                    <p:spacer styleClass="horizontal-divider" width="10" rendered="#{reportView.isUserRole}"/>
                     <p:commandButton styleClass="btntest" value="Log Time" actionListener="#{reportView.logTime}"
                                      icon="ui-icon-check" rendered="#{reportView.isUserRole}"/>
                 </p:panel>
@@ -100,6 +105,9 @@
                     </p:column>
                     <p:column headerText="Time" style="width: 25%">
                         <h:outputText value="#{workLog.time}"/>
+                    </p:column>
+                    <p:column headerText="Register Type">
+                        <h:outputText value="#{workLog.registerType}"/>
                     </p:column>
                     <p:column/>
                 </p:dataTable>

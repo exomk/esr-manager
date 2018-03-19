@@ -39,8 +39,9 @@ public class WorkLog implements Serializable {
     private String time;
     private Timestamp timestamp;
     private Device device;
+    private ERegisterType registerType;
 
-    public WorkLog (int id, String date, String time, Timestamp timestamp, Device device) {
+    public WorkLog(int id, String date, String time, Timestamp timestamp, Device device) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -54,6 +55,7 @@ public class WorkLog implements Serializable {
         this.date = sdfDate.format(timestamp);
         this.time = sdfTime.format(timestamp);
         this.device = new Device(workLogEntity.getDeviceEntity());
+        this.registerType = workLogEntity.getRegisterType();
     }
 
     public int getId() {
@@ -94,5 +96,13 @@ public class WorkLog implements Serializable {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+    public ERegisterType getRegisterType() {
+        return registerType;
+    }
+
+    public void setRegisterType(ERegisterType registerType) {
+        this.registerType = registerType;
     }
 }
