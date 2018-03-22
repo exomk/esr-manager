@@ -51,7 +51,7 @@ ear {
 //      description = "My customized EAR for the Gradle documentation"
 //      libraryDirectory = "APP-INF/lib"  // not needed, above libDirName setting does this
 //      module("my.jar", "java")  // won't deploy as my.jar isn't deploy dependency
-        webModule("esr-manager-web-1.0-SNAPSHOT.war", "/")  // won't deploy as my.war isn't deploy dependency
+        webModule("esr-manager-web-1.0.0.war", "/")  // won't deploy as my.war isn't deploy dependency
 //      securityRole "admin"
 //      securityRole "superadmin"
     }

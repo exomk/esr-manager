@@ -29,14 +29,14 @@ repositories {
     }
 
     // Use local repository for primefaces 6.2-SNAPSHOT
-    mavenLocal()
+//    mavenLocal()
 }
 
 dependencies {
     compile project(':esr-manager-ejb-client')
     compile project(':esr-manager-ejb')
     compile project(':esr-manager-eao')
-    compile group: 'org.primefaces', name: 'primefaces', version: '6.2-SNAPSHOT'
+    compile group: 'org.primefaces', name: 'primefaces', version: '6.2'
     compile group: 'org.primefaces.themes', name: 'delta', version: '1.0.10'
 //    compile group: 'org.primefaces.themes', name: 'blitzer', version: '1.0.10'
 }
